@@ -1,9 +1,9 @@
 import axiosInstance from "../axiosInstance";
 import { CreateToDoTaskListDto, ToDoTaskList, UpdateToDoTaskListDto } from "../entity";
 
-export const getToDoTaskListById = async (id: String) : Promise<ToDoTaskList> => {
+export const getToDoTaskListById = async (id: string) : Promise<ToDoTaskList> => {
     try{
-        const response = await axiosInstance.get<ToDoTaskList>(`/todolists${id}`);
+        const response = await axiosInstance.get<ToDoTaskList>(`/todolists/${id}`);
         return response.data;
     } catch (error){
         console.error("Error fetching ToDoTaskList by ID:", error);
@@ -31,7 +31,7 @@ export const createToDoTaskList = async (createTaskListData: CreateToDoTaskListD
     }
 }
 
-export const updateToDoTaskListById = async (id: String, updateTaskListData: UpdateToDoTaskListDto) => {
+export const updateToDoTaskListById = async (id: string, updateTaskListData: UpdateToDoTaskListDto) => {
     try {
         await axiosInstance.put<ToDoTaskList>(`/todolists/${id}`, updateTaskListData);
     } catch (error){
@@ -40,11 +40,19 @@ export const updateToDoTaskListById = async (id: String, updateTaskListData: Upd
     }
 }
 
-export const deleteToDoTaskListById = async (id: String) => {
+export const deleteToDoTaskListById = async (id: string) => {
     try {
         await axiosInstance.delete<ToDoTaskList>(`/todolists/${id}`);
     } catch (error){
         console.error("Error deleting ToDoTaskList:", error);
         throw error;
     }
+}
+
+export default {
+    getToDoTaskListById,
+    getAllToDoTaskLists,
+    createToDoTaskList,
+    updateToDoTaskListById,
+    deleteToDoTaskListById
 }
